@@ -52,8 +52,11 @@ public class TestController {
     //헤더를 조작할 때는 HTTP의 헤더 속성을 나열하면 되고
     //내용을 보낼때는 body()메서드 내에 보내질 내용을 같이 보내면 됩니다.
     @GetMapping("/testResponseEntity")
-    public ResponseEntity<String> testResponseEntity() {
-        return ResponseEntity.ok("안녕하세요");
+    public ResponseEntity<?> testResponseEntity() {
+        List<String> list= new ArrayList<>();
+        list.add("올바르지만 400 ㅋ");
+        ResponseDTO<String> dto = ResponseDTO.<String>builder().data(list).build();
+        return ResponseEntity.badRequest().body(dto);
     }
 
 }
