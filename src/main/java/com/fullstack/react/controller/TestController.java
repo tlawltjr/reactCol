@@ -2,6 +2,7 @@ package com.fullstack.react.controller;
 
 import com.fullstack.react.DTO.ResponseDTO;
 import com.fullstack.react.DTO.TestRequestDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,7 +43,17 @@ public class TestController {
 
         List<String> list= new ArrayList<>();
         list.add("안녕하세요 이 내용은 ResponseDTO내용입니다.");
-        return null;
+        ResponseDTO<String> responseDTO = ResponseDTO.<String>builder().data(list).build();
+        return responseDTO;
+    }
+
+    //ResponseEntity 요청 정보를 header 정보와 같이 보낼 수 있는 API
+    //헤더를 직접 조작 가능합니다.
+    //헤더를 조작할 때는 HTTP의 헤더 속성을 나열하면 되고
+    //내용을 보낼때는 body()메서드 내에 보내질 내용을 같이 보내면 됩니다.
+    @GetMapping("/testResponseEntity")
+    public ResponseEntity<String> testResponseEntity() {
+        return ResponseEntity.ok("안녕하세요");
     }
 
 }
